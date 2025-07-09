@@ -47,7 +47,6 @@ public class PlayerManager : MonoBehaviour
             if(inputH == -1)
             {
                 GetComponent<SpriteRenderer>().flipX = true;
-                anim.SetBool("Mirror", true);
             }
             else
             {
