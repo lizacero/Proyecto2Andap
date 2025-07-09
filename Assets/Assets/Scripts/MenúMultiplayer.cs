@@ -1,14 +1,32 @@
 using UnityEngine;
 using TMPro;
+using Photon.Pun;
+using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
-public class MenúMultiplayer : MonoBehaviour
+public class MenúMultiplayer : MonoBehaviourPunCallbacks
 {
-    TMP_InputField buttonText;
+    TMP_InputField usernameInput;
 
-    public TMP_Text text;
+    TMP_Text ButtonText;
 
     public void OnclickConnect()
     {
+        if (usernameInput != null)
+        {
+            PhotonNetwork.NickName = usernameInput.text;
 
+
+
+            ButtonText.text = "Conectando...";
+            PhotonNetwork.ConnectUsingSettings();
     }
 }
+
+    public override void OnConnectedToMaster()
+    {
+        base.OnConnectedToMaster();
+        SceneManager.LoadScene("Gameplay");
+    }
+}
+
