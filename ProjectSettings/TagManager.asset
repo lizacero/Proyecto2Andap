@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Key
   - Velocidad
+  - Puerta
   layers:
   - Default
   - TransparentFX
@@ -14,7 +15,7 @@ TagManager:
   - Water
   - UI
   - Colisiones
-  - 
+  - Interractuable
   - 
   - 
   - 

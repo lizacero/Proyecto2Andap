@@ -5,16 +5,18 @@ public class PlayerManager : MonoBehaviour
 {
     private float inputH;
     private float inputV;
+    private float velocidadInicial;
     private bool moviendo;
     private int llaves=0;
     private Vector3 puntoDestino;
     private Vector3 puntoInteraccion;
     private Vector3 ultimoInput;
     private Collider2D colliderDelante;
+    private Interactuable interactuable;
     [SerializeField] private float velocidad;
     [SerializeField] private float radioInteraccion;
     [SerializeField] private LayerMask colisionable;
-    [SerializeField] private LayerMask interactuable;
+    //[SerializeField] private LayerMask interactuable;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -71,7 +73,7 @@ public class PlayerManager : MonoBehaviour
         colliderDelante = LanzarCheck();
         if (colliderDelante) //si existe
         {
-            if (colliderDelante.CompareTag("Key"))
+            if (colliderDelante.CompareTag("Puerta"))
             {
                 Debug.Log("llave adelante");
                 if (colliderDelante.TryGetComponent(out Interactuable interactuable))
@@ -83,6 +85,29 @@ public class PlayerManager : MonoBehaviour
             }
 
         }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.CompareTag("Key"))
+        {            
+            llaves += 1;
+            Debug.Log(llaves);
+            Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.CompareTag("Velocidad"))
+        {
+            // aumentar velocidad por cierto tiempo
+            AumentoVelocidad();
+        }
+    }
+
+    IEnumerator AumentoVelocidad()
+    {
+        velocidadInicial = velocidad;
+        velocidad = velocidad * 2;
+        yield return new WaitForSeconds(5);
+        velocidad = velocidadInicial;
+
     }
 
 
