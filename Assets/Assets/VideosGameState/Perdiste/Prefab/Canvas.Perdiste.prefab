@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 4411146492123007645}
   - component: {fileID: 1688394881672320607}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: Canvas.Perdiste
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
