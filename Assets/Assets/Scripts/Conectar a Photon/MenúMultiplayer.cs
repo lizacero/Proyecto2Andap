@@ -161,6 +161,7 @@ public class MenúMultiplayer : MonoBehaviourPunCallbacks
         if (PhotonNetwork.IsMasterClient) 
         { 
            PhotonNetwork.LoadLevel(1);
+           InstanciarObjetos();
         }
     }
 }
