@@ -184,6 +184,7 @@ MonoBehaviour:
   colisionable:
     serializedVersion: 2
     m_Bits: 64
+  photonView: {fileID: -196824005026225456}
 --- !u!95 &7978495967670303688
 Animator:
   serializedVersion: 7
@@ -224,7 +225,9 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: 2970481836155662946}
+  - {fileID: 5933452681641768227}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0

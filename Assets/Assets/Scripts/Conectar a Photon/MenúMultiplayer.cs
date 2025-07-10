@@ -23,6 +23,7 @@ public class MenúMultiplayer : MonoBehaviourPunCallbacks
         {
             instance = this;
             PhotonNetwork.AutomaticallySyncScene = true;
+            DontDestroyOnLoad(this.gameObject);
         }
         else 
         {
@@ -160,8 +161,8 @@ public class MenúMultiplayer : MonoBehaviourPunCallbacks
         Debug.Log("Otro jugador entró a la sala");
         if (PhotonNetwork.IsMasterClient) 
         { 
-           PhotonNetwork.LoadLevel(1);
-           InstanciarObjetos();
+           PhotonNetwork.LoadLevel("Pruebas");
+           //InstanciarObjetos();
         }
     }
 }
