@@ -12,7 +12,7 @@ public class PlayerManager : MonoBehaviour
     private Vector3 puntoInteraccion;
     private Vector3 ultimoInput;
     private Collider2D colliderDelante;
-    private Interactuable interactuable;
+    private Animator anim;
     [SerializeField] private float velocidad;
     [SerializeField] private float radioInteraccion;
     [SerializeField] private LayerMask colisionable;
@@ -20,7 +20,7 @@ public class PlayerManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -41,6 +41,17 @@ public class PlayerManager : MonoBehaviour
 
         if (!moviendo && (inputH != 0 || inputV != 0))
         {
+            anim.SetBool("andando", true);
+            anim.SetFloat("inputH", inputH);
+            anim.SetFloat("inputV", inputV);
+            if(inputH == -1)
+            {
+                GetComponent<SpriteRenderer>().flipX = true;
+            }
+            else
+            {
+                GetComponent<SpriteRenderer>().flipX = false;
+            }
             ultimoInput = new Vector3(inputH, inputV, 0);
             puntoDestino = transform.position + ultimoInput;
             puntoInteraccion = puntoDestino;
@@ -49,6 +60,10 @@ public class PlayerManager : MonoBehaviour
             {
                 StartCoroutine(Mover());
             }
+        }
+        else if (inputH == 0 && inputV == 0)
+        {
+            anim.SetBool("andando", false);
         }
     }
 
@@ -75,12 +90,17 @@ public class PlayerManager : MonoBehaviour
         {
             if (colliderDelante.CompareTag("Puerta"))
             {
-                Debug.Log("llave adelante");
-                if (colliderDelante.TryGetComponent(out Interactuable interactuable))
+                Debug.Log("Puerta adelante");
+                if (llaves >= 5)
                 {
-                    interactuable.Interactuar();
-                    llaves += 1;
-                    Debug.Log(llaves);
+                    if (colliderDelante.TryGetComponent(out Interactuable interactuable))
+                    {
+                        interactuable.Interactuar();
+                    }
+                }
+                else
+                {
+                    Debug.Log("Llaves insuficientes");
                 }
             }
 
@@ -96,17 +116,25 @@ public class PlayerManager : MonoBehaviour
         }
         if (collision.gameObject.CompareTag("Velocidad"))
         {
-            // aumentar velocidad por cierto tiempo
-            AumentoVelocidad();
+            StartCoroutine(AumentoVelocidad());
+            Destroy(collision.gameObject);
+        }
+        if (collision.gameObject.CompareTag("Puerta"))
+        {
+            //Activa Canvas ganaste
+            //Pausa game
+            Debug.Log("Ganaste!!");
         }
     }
 
     IEnumerator AumentoVelocidad()
     {
         velocidadInicial = velocidad;
-        velocidad = velocidad * 2;
+        velocidad = velocidad * 3;
+        Debug.Log("Velocidad: " + velocidad);
         yield return new WaitForSeconds(5);
         velocidad = velocidadInicial;
+        Debug.Log("Velocidad: " + velocidad);
 
     }
 
