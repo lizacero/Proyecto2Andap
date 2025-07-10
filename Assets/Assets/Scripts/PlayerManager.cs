@@ -23,6 +23,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     private Rigidbody2D rb;
     private SpriteRenderer spriteRenderer;
     private bool esJugadorLocal = false;
+    // Variables para sincronizar animaciones
+    private bool andandoSincronizado = false;
+    private float inputHSincronizado = 0f;
+    private float inputVSincronizado = 0f;
+    private bool flipXSincronizado = false;
     //[SerializeField] private LayerMask interactuable;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -125,6 +130,13 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             {
                 GetComponent<SpriteRenderer>().flipX = false;
             }
+            
+            // Actualizar variables de sincronización
+            andandoSincronizado = true;
+            inputHSincronizado = inputH;
+            inputVSincronizado = inputV;
+            flipXSincronizado = spriteRenderer.flipX;
+            
             ultimoInput = new Vector3(inputH, inputV, 0);
             puntoDestino = transform.position + ultimoInput;
             puntoInteraccion = puntoDestino;
@@ -137,6 +149,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
         else if (inputH == 0 && inputV == 0)
         {
             anim.SetBool("andando", false);
+            
+            // Actualizar variables de sincronización
+            andandoSincronizado = false;
+            inputHSincronizado = 0f;
+            inputVSincronizado = 0f;
         }
     }
 
@@ -236,6 +253,11 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(transform.rotation);
             stream.SendNext(llaves);
             stream.SendNext(velocidad);
+            // Sincronizar animaciones
+            stream.SendNext(andandoSincronizado);
+            stream.SendNext(inputHSincronizado);
+            stream.SendNext(inputVSincronizado);
+            stream.SendNext(flipXSincronizado);
         }
         else
         {
@@ -244,6 +266,23 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             transform.rotation = (Quaternion)stream.ReceiveNext();
             llaves = (int)stream.ReceiveNext();
             velocidad = (float)stream.ReceiveNext();
+            // Recibir animaciones
+            andandoSincronizado = (bool)stream.ReceiveNext();
+            inputHSincronizado = (float)stream.ReceiveNext();
+            inputVSincronizado = (float)stream.ReceiveNext();
+            flipXSincronizado = (bool)stream.ReceiveNext();
+            
+            // Aplicar animaciones recibidas
+            if (anim != null)
+            {
+                anim.SetBool("andando", andandoSincronizado);
+                anim.SetFloat("inputH", inputHSincronizado);
+                anim.SetFloat("inputV", inputVSincronizado);
+                if (spriteRenderer != null)
+                {
+                    spriteRenderer.flipX = flipXSincronizado;
+                }
+            }
         }
     }
 
