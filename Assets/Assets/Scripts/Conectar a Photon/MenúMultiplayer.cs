@@ -15,7 +15,20 @@ public class MenúMultiplayer : MonoBehaviourPunCallbacks
     public PhotonView Player1;
     public PhotonView Player2;
 
-    public Transform SpawnPoint;
+    public static MenúMultiplayer instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else 
+        {
+            Destroy(this.gameObject);
+        }
+    }
+
 
     public void OnclickConnect()
     {
@@ -88,8 +101,21 @@ public class MenúMultiplayer : MonoBehaviourPunCallbacks
         Debug.Log("Nos unimos a una sala");
         Debug.Log("Tamaño máximo de salas:" + PhotonNetwork.CurrentRoom.MaxPlayers);
 
-        PhotonNetwork.Instantiate(Player1.name,SpawnPoint.position,SpawnPoint.rotation);
+        SceneManager.LoadScene(sceneName: "Pruebas");
 
+        
+    }
+
+    public void InstanciarObjetos()
+    {
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.Instantiate(Player1.name, Vector3.zero, Quaternion.identity);
+        }
+        else
+        {
+            PhotonNetwork.Instantiate(Player2.name, Vector3.zero, Quaternion.identity);
+        }
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
@@ -133,7 +159,7 @@ public class MenúMultiplayer : MonoBehaviourPunCallbacks
     {
         base.OnPlayerEnteredRoom(newPlayer);
 
-        PhotonNetwork.Instantiate(Player2.name, SpawnPoint.position, SpawnPoint.rotation);
+        
 
         Debug.Log("Otro jugador entró a la sala");
         

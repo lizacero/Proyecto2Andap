@@ -330,7 +330,6 @@ GameObject:
   - component: {fileID: 611801087}
   - component: {fileID: 611801086}
   - component: {fileID: 611801085}
-  - component: {fileID: 611801088}
   m_Layer: 5
   m_Name: BuscarPartida
   m_TagString: Untagged
@@ -402,7 +401,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 611801088}
+      - m_Target: {fileID: 798925486}
         m_TargetAssemblyTypeName: "Men\xFAMultiplayer, Assembly-CSharp"
         m_MethodName: ConectarseSalaAleatoria
         m_Mode: 1
@@ -452,20 +451,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 611801083}
   m_CullTransparentMesh: 1
---- !u!114 &611801088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 611801083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28b6bd1c100075e47a1458fc126b4db9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  usernameInput: {fileID: 1686141841}
-  "PanelMen\xFA": {fileID: 217255483}
 --- !u!1 &642260592
 GameObject:
   m_ObjectHideFlags: 0
@@ -769,6 +754,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   usernameInput: {fileID: 1686141841}
   "PanelMen\xFA": {fileID: 217255483}
+  Player1: {fileID: -3025327103614804282, guid: 635ddee01ea6038479e7505026e69a9d, type: 3}
+  Player2: {fileID: -196824005026225456, guid: 95b560e3fae6d6b4195816f539874c8f, type: 3}
 --- !u!4 &798925487
 Transform:
   m_ObjectHideFlags: 0
@@ -796,7 +783,6 @@ GameObject:
   - component: {fileID: 823839862}
   - component: {fileID: 823839861}
   - component: {fileID: 823839860}
-  - component: {fileID: 823839863}
   m_Layer: 5
   m_Name: Crear una Sala
   m_TagString: Untagged
@@ -868,9 +854,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 823839863}
+      - m_Target: {fileID: 823839858}
         m_TargetAssemblyTypeName: "Men\xFAMultiplayer, Assembly-CSharp"
-        m_MethodName: CrearSala
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -918,20 +904,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 823839858}
   m_CullTransparentMesh: 1
---- !u!114 &823839863
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 823839858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 28b6bd1c100075e47a1458fc126b4db9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  usernameInput: {fileID: 1686141841}
-  "PanelMen\xFA": {fileID: 217255483}
 --- !u!1 &848236535
 GameObject:
   m_ObjectHideFlags: 0
