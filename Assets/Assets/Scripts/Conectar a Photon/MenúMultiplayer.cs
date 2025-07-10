@@ -82,6 +82,9 @@ public class MenúMultiplayer : MonoBehaviourPunCallbacks
         base.OnJoinedRoom();
         Debug.Log("Nos unimos a una sala");
         Debug.Log("Tamaño máximo de salas:" + PhotonNetwork.CurrentRoom.MaxPlayers);
+
+        
+
     }
 
     public override void OnJoinRandomFailed(short returnCode, string message)
