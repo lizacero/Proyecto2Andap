@@ -22,6 +22,7 @@ public class MenúMultiplayer : MonoBehaviourPunCallbacks
         if (instance == null)
         {
             instance = this;
+            PhotonNetwork.AutomaticallySyncScene = true;
         }
         else 
         {
@@ -101,9 +102,6 @@ public class MenúMultiplayer : MonoBehaviourPunCallbacks
         Debug.Log("Nos unimos a una sala");
         Debug.Log("Tamaño máximo de salas:" + PhotonNetwork.CurrentRoom.MaxPlayers);
 
-        SceneManager.LoadScene(sceneName: "Pruebas");
-
-        
     }
 
     public void InstanciarObjetos()
@@ -159,9 +157,10 @@ public class MenúMultiplayer : MonoBehaviourPunCallbacks
     {
         base.OnPlayerEnteredRoom(newPlayer);
 
-        
-
         Debug.Log("Otro jugador entró a la sala");
-        
+        if (PhotonNetwork.IsMasterClient) 
+        { 
+           PhotonNetwork.LoadLevel(1);
+        }
     }
 }
