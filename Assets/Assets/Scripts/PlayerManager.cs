@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using TMPro;
 
 public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable 
 {
@@ -15,6 +16,7 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
     private Vector3 ultimoInput;
     private Collider2D colliderDelante;
     private Animator anim;
+    private TextMeshProUGUI textoLlaves;
     [SerializeField] private float velocidad;
     [SerializeField] private float radioInteraccion;
     [SerializeField] private LayerMask colisionable;
@@ -204,6 +206,8 @@ public class PlayerManager : MonoBehaviourPunCallbacks, IPunObservable
             {
                 llaves += 1;
                 Debug.Log("Llaves: " + llaves + "/5");
+                textoLlaves = GameObject.Find("Llaves").GetComponent<TextMeshProUGUI>();
+                textoLlaves.text = llaves + " / 5";
                 //Destroy(collision.gameObject);
                 collision.gameObject.GetComponent<PhotonView>().RPC("DesactivarObjeto", RpcTarget.All);
             }
