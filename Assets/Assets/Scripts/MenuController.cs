@@ -15,11 +15,16 @@ public class MenuController : MonoBehaviour
         Time.timeScale = 1f;
         
         // Desconectar de Photon si estamos en una sala
-        if (PhotonNetwork.InRoom)
-        {
-            PhotonNetwork.LeaveRoom();
-        }
-        
+        //if (PhotonNetwork.InRoom)
+        //{
+            //PhotonNetwork.LeaveRoom();
+        //}
+        // Salir del lobby también
+        //PhotonNetwork.LeaveLobby();
+
+        // Desconectar completamente de Photon
+        PhotonNetwork.Disconnect();
+
         // Ocultar todos los paneles de resultado
         if (GameManager.Instance != null)
         {
@@ -35,6 +40,13 @@ public class MenuController : MonoBehaviour
         {
             SceneManager.LoadScene(nombreEscenaMenu);
         }
+    }
+
+    public void SalirDelJuego()
+    {
+        PhotonNetwork.Disconnect();
+        Application.Quit();
+        Debug.Log("Salir del juego");
     }
 
     private System.Collections.IEnumerator CargarEscenaConTransicion()
@@ -61,12 +73,4 @@ public class MenuController : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
-    public void SalirDelJuego()
-    {
-        #if UNITY_EDITOR
-            UnityEditor.EditorApplication.isPlaying = false;
-        #else
-            Application.Quit();
-        #endif
-    }
 } 

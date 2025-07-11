@@ -5,10 +5,15 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
+using UnityEngine.UI;
 
 public class MenúMultiplayer : MonoBehaviourPunCallbacks
 {
     public TMP_InputField usernameInput;
+
+    private GameObject botonConectar;
+    private GameObject buscarPartida;
+    private GameObject crearSala;
 
     public GameObject PanelMenú;
 
@@ -23,11 +28,45 @@ public class MenúMultiplayer : MonoBehaviourPunCallbacks
         {
             instance = this;
             PhotonNetwork.AutomaticallySyncScene = true;
-            DontDestroyOnLoad(this.gameObject);
+            //DontDestroyOnLoad(this.gameObject);
         }
         else 
         {
             Destroy(this.gameObject);
+        }
+        if (PanelMenú == null)
+        {
+            PanelMenú = GameObject.Find("PanelMenú");
+            Debug.Log("PanelMenú encontrado");
+        }
+        if (PanelMenú != null)
+        {
+            PanelMenú.SetActive(false);
+        }
+        else
+        {
+            Debug.Log("PanelMenú no encontrado");
+        }
+    }
+    private void Start()
+    {
+        botonConectar = GameObject.Find("Conectar Photon");
+        buscarPartida = GameObject.Find("Buscar Partida");
+        crearSala = GameObject.Find("Crear una Sala");
+        if (botonConectar != null)
+        {
+            botonConectar.GetComponent<Button>().onClick.RemoveAllListeners();
+            botonConectar.GetComponent<Button>().onClick.AddListener(ConnectedToPhoton);
+        }
+        if (buscarPartida != null)
+        {
+            buscarPartida.GetComponent<Button>().onClick.RemoveAllListeners();
+            buscarPartida.GetComponent<Button>().onClick.AddListener(ConectarseSalaAleatoria);
+        }
+        if (crearSala != null)
+        {
+            crearSala.GetComponent<Button>().onClick.RemoveAllListeners();
+            crearSala.GetComponent<Button>().onClick.AddListener(CrearSala);
         }
     }
 
@@ -56,7 +95,11 @@ public class MenúMultiplayer : MonoBehaviourPunCallbacks
     public override void OnConnectedToMaster()
     {
         base.OnConnectedToMaster();
-        PanelMenú.SetActive(true);
+        //PanelMenú.SetActive(true);
+        if (PanelMenú != null)
+        {
+            PanelMenú.SetActive(true);
+        }
     }
 
     public override void OnDisconnected(DisconnectCause cause)
