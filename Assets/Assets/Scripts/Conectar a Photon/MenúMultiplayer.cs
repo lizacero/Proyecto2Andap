@@ -161,7 +161,7 @@ public class MenúMultiplayer : MonoBehaviourPunCallbacks
         Debug.Log("Otro jugador entró a la sala");
         if (PhotonNetwork.IsMasterClient) 
         { 
-           PhotonNetwork.LoadLevel("Pruebas");
+           PhotonNetwork.LoadLevel("Gameplay");
            //InstanciarObjetos();
         }
     }

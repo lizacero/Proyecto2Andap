@@ -1300,6 +1300,56 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
+--- !u!1 &1487211658
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1487211660}
+  - component: {fileID: 1487211659}
+  m_Layer: 0
+  m_Name: AudioManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1487211659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487211658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49a6d1bec44a0a347a88562e9359d84e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicaMenu: {fileID: 8300000, guid: eed70305444c716498c63afd93bb42a1, type: 3}
+  musicaGameplay: {fileID: 8300000, guid: b07018a2b4f36f24fa94d5527ac3ddaa, type: 3}
+  musicaVictoria: {fileID: 8300000, guid: a952a95fe430de646bd7beacfc470e74, type: 3}
+  musicaDerrota: {fileID: 8300000, guid: 4cd48062c9581024da09a77f6b61e223, type: 3}
+  volumenMusica: 0.3
+  musicaActivada: 1
+--- !u!4 &1487211660
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1487211658}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1645567693
 GameObject:
   m_ObjectHideFlags: 0
@@ -1602,3 +1652,4 @@ SceneRoots:
   - {fileID: 1165692480}
   - {fileID: 1056898956}
   - {fileID: 798925487}
+  - {fileID: 1487211660}

@@ -1,11 +1,11 @@
 using UnityEngine;
+using Photon.Pun;
 
 public class Puerta : MonoBehaviour, Interactuable
 {
     [SerializeField] private GameObject texto;
     [SerializeField] private float distanciaInteraccion = 1f;
-    [SerializeField] private Sprite spritePuertaCerrada;
-    [SerializeField] private Sprite spritePuertaAbierta;
+
 
     private Transform player;
     private bool isPlayerNear = false;
@@ -14,11 +14,20 @@ public class Puerta : MonoBehaviour, Interactuable
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
         texto.SetActive(false);
+        // Buscar el jugador local
+        BuscarJugadorLocal();
     }
+    
     void Update()
     {
+        // Si no tenemos referencia al jugador, intentar encontrarlo
+        if (player == null)
+        {
+            BuscarJugadorLocal();
+            return;
+        }
+        
         distance = Vector2.Distance(transform.position, player.position);
         if (puertaAbierta == false)
         {
@@ -40,6 +49,30 @@ public class Puerta : MonoBehaviour, Interactuable
             }
         }
     }
+    
+    private void BuscarJugadorLocal()
+    {
+        // Buscar todos los jugadores en la escena
+        GameObject[] jugadores = GameObject.FindGameObjectsWithTag("Player");
+        
+        
+        // Buscar el jugador local (el que tiene PhotonView.IsMine = true)
+        foreach (GameObject jugador in jugadores)
+        {
+            PhotonView pv = jugador.GetComponent<PhotonView>();
+            if (pv != null && pv.IsMine)
+            {
+                player = jugador.transform;
+                return;
+            }
+        }
+        
+        // Si no encontramos el jugador local, usar el primer jugador encontrado
+        if (jugadores.Length > 0)
+        {
+            player = jugadores[0].transform;
+        }
+    }
     public void Interactuar()
     {
         puertaAbierta = true;
@@ -49,15 +82,6 @@ public class Puerta : MonoBehaviour, Interactuable
         int layerPuerta = LayerMask.NameToLayer("Interactuable");
         gameObject.layer = layerPuerta;
         
-        // Cambiar sprite a puerta abierta
-        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
-        if (spriteRenderer != null && spritePuertaAbierta != null)
-        {
-            spriteRenderer.sprite = spritePuertaAbierta;
-        }
-        else
-        {
-            Debug.LogWarning("SpriteRenderer no encontrado o spritePuertaAbierta no asignado");
-        }
+
     }
 }
